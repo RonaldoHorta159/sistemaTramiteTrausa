@@ -1,6 +1,6 @@
-// Archivo: model/model_usuario.php
 <?php
-require_once 'Database.php'; // Incluimos la nueva clase de conexión
+// Archivo: model/model_usuario.php
+require_once 'Database.php';
 
 class UsuarioModel
 {
@@ -13,7 +13,6 @@ class UsuarioModel
 
     public function verificarUsuario($nombre_usuario, $password)
     {
-        // Usamos la base de datos optimizada que te propuse antes
         $sql = "SELECT id, nombre_usuario, password_hash, rol, area_id 
                 FROM usuario 
                 WHERE nombre_usuario = ? AND estado = 'ACTIVO'";
@@ -30,4 +29,3 @@ class UsuarioModel
         return false;
     }
 }
-?>

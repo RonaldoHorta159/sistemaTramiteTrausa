@@ -1,5 +1,5 @@
-// Archivo: model/Database.php
 <?php
+// model/Database.php
 class Database
 {
     private static $instancia = null;
@@ -7,17 +7,22 @@ class Database
 
     private function __construct()
     {
-        require_once __DIR__ . '../config/database.php'; // Ajusta la ruta si es necesario
+        require_once __DIR__ . '/../config/database.php';
         $opciones = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES => false,
         ];
-        $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET;
+
+        // --- ¡AQUÍ ESTÁ LA MODIFICACIÓN CLAVE! ---
+        // Construimos la cadena de conexión (DSN) incluyendo el puerto.
+        $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET;
+
         try {
             $this->pdo = new PDO($dsn, DB_USER, DB_PASS, $opciones);
         } catch (PDOException $e) {
-            error_log('Error de conexión a BD: ' . $e->getMessage());
+            // Este error ya no debería aparecer.
+            error_log('Error de conexión a la BD: ' . $e->getMessage());
             die('Error crítico: No se pudo conectar a la base de datos.');
         }
     }
@@ -39,4 +44,3 @@ class Database
     {
     }
 }
-?>
