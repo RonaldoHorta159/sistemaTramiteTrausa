@@ -209,17 +209,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+
                         <li class="nav-item">
                             <a onclick="cargar_contenido('contenido_principal','usuario/view_usuario.php')"
                                 class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
+                                <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Usuario
                                 </p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="../controller/usuario/controlador_cerrar_sesion.php" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p>
+                                    Cerrar Sesión
+                                </p>
+                            </a>
+                        </li>
+
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

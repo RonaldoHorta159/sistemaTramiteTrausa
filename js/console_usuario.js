@@ -7,13 +7,14 @@ function Ingresar() {
       icon: "warning",
       title: "Campos Vacíos",
       text: "Por favor, complete todos los campos.",
+      heightAuto: false, // <-- AÑADIDO AQUÍ
     });
   }
 
   $.ajax({
     url: "controller/usuario/controlador_iniciar_sesion.php",
     type: "POST",
-    dataType: "json", // Añadimos esto para ser explícitos con jQuery.
+    dataType: "json",
     data: {
       u: usu,
       c: con,
@@ -22,6 +23,7 @@ function Ingresar() {
       Swal.fire({
         title: "Verificando...",
         allowOutsideClick: false,
+        heightAuto: false, // <-- AÑADIDO AQUÍ
         didOpen: () => {
           Swal.showLoading();
         },
@@ -29,9 +31,6 @@ function Ingresar() {
     },
   })
     .done(function (data) {
-      // --- ¡AQUÍ ESTÁ LA CORRECCIÓN! ---
-      // Ya no usamos JSON.parse(). La variable 'data' ya es un objeto.
-
       if (data.status === "success") {
         Swal.fire({
           icon: "success",
@@ -39,6 +38,7 @@ function Ingresar() {
           text: "Será redirigido a la página principal.",
           timer: 1500,
           showConfirmButton: false,
+          heightAuto: false, // <-- CORREGIDO AQUÍ
         }).then((result) => {
           location.href = "view/index.php";
         });
@@ -46,7 +46,8 @@ function Ingresar() {
         Swal.fire({
           icon: "error",
           title: "Error de Autenticación",
-          text: data.message, // Usamos la respuesta directamente
+          text: data.message,
+          heightAuto: false, // <-- AÑADIDO AQUÍ
         });
         document.getElementById("text_contra").value = "";
       }
@@ -57,6 +58,7 @@ function Ingresar() {
         icon: "error",
         title: "Error del Servidor",
         text: "No se pudo conectar o procesar la solicitud.",
+        heightAuto: false, // <-- CORREGIDO AQUÍ (estaba como 'heighAuto: falase')
       });
     });
 }

@@ -13,6 +13,7 @@ class UsuarioModel
 
     public function verificarUsuario($nombre_usuario, $password)
     {
+        // Dejamos el resto del código aquí para después.
         $sql = "SELECT id, nombre_usuario, password_hash, rol, area_id 
                 FROM usuario 
                 WHERE nombre_usuario = ? AND estado = 'ACTIVO'";
