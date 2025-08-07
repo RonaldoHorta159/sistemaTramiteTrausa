@@ -1,13 +1,42 @@
+// Hacemos que Recordar acepte los elementos como parámetros
+function Recordar(checkElement, userElement, passElement) {
+  // Verificamos si el checkbox está MARCADO (con la propiedad .checked)
+  if (
+    checkElement.checked &&
+    userElement.value !== "" &&
+    passElement.value !== ""
+  ) {
+    // Guardamos los valores en localStorage
+    localStorage.usuario = userElement.value;
+    localStorage.pass = passElement.value;
+    localStorage.checkbox = checkElement.checked; // Guardamos 'true'
+  } else {
+    // Si no está marcado, limpiamos el localStorage
+    localStorage.removeItem("usuario");
+    localStorage.removeItem("pass");
+    localStorage.removeItem("checkbox");
+  }
+}
+
 function Ingresar() {
-  let usu = document.getElementById("text_usuario").value;
-  let con = document.getElementById("text_contra").value;
+  // Obtenemos los elementos del DOM aquí, justo cuando se necesitan.
+  let usuInput = document.getElementById("text_usuario");
+  let conInput = document.getElementById("text_contra");
+  let rememberCheck = document.getElementById("remember");
+
+  // Llamamos a Recordar con los elementos correctos
+  Recordar(rememberCheck, usuInput, conInput);
+
+  // El resto de tu función Ingresar continúa aquí...
+  let usu = usuInput.value;
+  let con = conInput.value;
 
   if (usu.length == 0 || con.length == 0) {
     return Swal.fire({
       icon: "warning",
       title: "Campos Vacíos",
       text: "Por favor, complete todos los campos.",
-      heightAuto: false, // <-- AÑADIDO AQUÍ
+      heightAuto: false,
     });
   }
 
@@ -23,7 +52,7 @@ function Ingresar() {
       Swal.fire({
         title: "Verificando...",
         allowOutsideClick: false,
-        heightAuto: false, // <-- AÑADIDO AQUÍ
+        heightAuto: false,
         didOpen: () => {
           Swal.showLoading();
         },
@@ -38,7 +67,7 @@ function Ingresar() {
           text: "Será redirigido a la página principal.",
           timer: 1500,
           showConfirmButton: false,
-          heightAuto: false, // <-- CORREGIDO AQUÍ
+          heightAuto: false,
         }).then((result) => {
           location.href = "view/index.php";
         });
@@ -47,7 +76,7 @@ function Ingresar() {
           icon: "error",
           title: "Error de Autenticación",
           text: data.message,
-          heightAuto: false, // <-- AÑADIDO AQUÍ
+          heightAuto: false,
         });
         document.getElementById("text_contra").value = "";
       }
@@ -58,7 +87,7 @@ function Ingresar() {
         icon: "error",
         title: "Error del Servidor",
         text: "No se pudo conectar o procesar la solicitud.",
-        heightAuto: false, // <-- CORREGIDO AQUÍ (estaba como 'heighAuto: falase')
+        heightAuto: false,
       });
     });
 }

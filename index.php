@@ -1,3 +1,24 @@
+<?php
+// 1. Iniciamos la sesión para poder revisar la "pulsera VIP".
+session_start();
+
+// 2. ¿El usuario tiene una pulsera y es auténtica?
+//    (¿Ya inició sesión?)
+if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === true) {
+
+    // 3. ¡Sí! No tiene nada que hacer aquí. Lo mandamos de vuelta a la fiesta.
+    //    Redirigimos desde http://localhost/sistemaTramiteTramusa/
+    //    hacia http://localhost/sistemaTramiteTramusa/view/index.php
+    header('Location: view/index.php');
+
+    // 4. Detenemos el script para que no se muestre el formulario de login.
+    exit();
+}
+
+// Si el usuario NO tiene la pulsera, el código de arriba se ignora y se muestra
+// el resto del archivo, que es el formulario de login.
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,13 +97,28 @@
 
     <!-- jQuery -->
     <script src="plantilla/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
     <script src="plantilla/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
     <script src="plantilla/dist/js/adminlte.min.js"></script>
 
     <script src="js/console_usuario.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Obtenemos los elementos una sola vez cuando la página carga
+        const rmcheck = document.getElementById('remember');
+        const usuarioInput = document.getElementById('text_usuario');
+        const passInput = document.getElementById('text_contra');
+
+        // Verificamos si localStorage.checkbox existe y es 'true'
+        if (localStorage.checkbox && localStorage.checkbox === "true") {
+            rmcheck.checked = true; // Forma correcta de marcar un checkbox
+            usuarioInput.value = localStorage.usuario || ""; // Usamos || "" como fallback
+            passInput.value = localStorage.pass || "";
+        } else {
+            rmcheck.checked = false; // Forma correcta de desmarcar
+            usuarioInput.value = "";
+            passInput.value = "";
+        }
+    </script>
 
 </body>
 
