@@ -1,3 +1,8 @@
+<?php
+// Colocamos a nuestro guardián aquí.
+// Si el usuario no ha iniciado sesión, el script se detendrá aquí y será redirigido.
+require_once '../controller/usuario/controlador_verificar_sesion.php';
+?>
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -183,7 +188,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block"><?= htmlspecialchars($_SESSION['nombre_usuario']) ?></a>
                     </div>
                 </div>
 
@@ -229,7 +234,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Starter Page</h1>
+                            <h1 class="m-0">¡Bienvenido, <?= htmlspecialchars($_SESSION['nombre_usuario']) ?>!</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
