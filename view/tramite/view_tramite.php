@@ -50,6 +50,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="modal_registro_tramite" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -102,4 +103,72 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal_seguimiento" tabindex="-1" aria-labelledby="seguimientoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="seguimientoLabel">SEGUIMIENTO DEL DOCUMENTO: <span id="codigo_tramite"
+                        class="text-primary"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Fecha y Hora</th>
+                            <th>Área Origen</th>
+                            <th>Área Destino</th>
+                            <th>Estado</th>
+                            <th>Proveído / Instrucción</th>
+                            <th>Realizado Por</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpo_seguimiento">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal_derivar" tabindex="-1" aria-labelledby="derivarLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="derivarLabel">DERIVAR DOCUMENTO: <span id="codigo_tramite_derivar"
+                        class="text-primary"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form id="formulario_derivar" onsubmit="return false;">
+                    <input type="hidden" id="id_documento_derivar">
+                    <div class="form-group">
+                        <label>Área de Origen (Actual)</label>
+                        <input type="text" class="form-control" id="area_origen_derivar" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Nuevo Destino (*)</label>
+                        <select class="form-control" id="combo_area_destino_derivar" style="width:100%;"
+                            required></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Proveído / Instrucción (*)</label>
+                        <textarea class="form-control" id="proveido_derivar" rows="3" required
+                            placeholder="Ej: Para su revisión y opinión..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btn_guardar_derivacion">Derivar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="../js/console_tramite.js"></script>

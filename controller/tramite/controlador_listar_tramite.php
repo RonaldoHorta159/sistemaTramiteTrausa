@@ -1,16 +1,29 @@
 <?php
-require '../../model/model_tramite.php';
-$MT = new Modelo_Tramite(); //Instanciamos
+session_start();
+require_once '../../model/model_tramite.php';
 
-// Llamamos a la nueva función del modelo
-$consulta = $MT->Listar_Tramite();
+if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== true) {
+    echo json_encode(['data' => []]);
+    exit();
+}
 
-// Verificamos si la consulta devolvió datos
+$MT = new Modelo_Tramite();
+$consulta = [];
+
+// Lógica de decisión basada en el ROL
+if ($_SESSION['rol'] === 'Administrador') {
+    // Si es Admin, llamamos a la función sin parámetro (se usará NULL por defecto).
+    $consulta = $MT->ListarTramites();
+} else {
+    // Si es Usuario, pasamos su ID de área para filtrar los resultados.
+    $areaId = $_SESSION['area_id'];
+    $consulta = $MT->ListarTramites($areaId);
+}
+
+// Devolvemos el resultado
 if ($consulta) {
-    // Si hay datos, los codificamos y los enviamos en el formato que DataTables espera
     echo json_encode(['data' => $consulta]);
 } else {
-    // Si no hay datos, enviamos una estructura vacía
     echo json_encode(['data' => []]);
 }
 ?>
