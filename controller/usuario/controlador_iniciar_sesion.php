@@ -1,50 +1,47 @@
 <?php
-// Usaremos la nueva y mejorada clase UsuarioModel
-require_once '../../model/model_usuario.php';
+require_once __DIR__ . '/../../config.php';
+require_once __DIR__ . '/../../model/model_usuario.php';
 
-// Creamos una instancia del modelo.
-$usuarioModel = new UsuarioModel();
-
-// Obtenemos los datos del POST. Usamos filter_input para más seguridad.
-$usu = filter_input(INPUT_POST, 'u', FILTER_SANITIZE_SPECIAL_CHARS);
-$con = filter_input(INPUT_POST, 'c', FILTER_SANITIZE_SPECIAL_CHARS);
-
-// Creamos un array para la respuesta JSON.
+$MU = new Modelo_Usuario();
+$usu = htmlspecialchars($_POST['u'], ENT_QUOTES, 'UTF-8');
+$con = htmlspecialchars($_POST['c'], ENT_QUOTES, 'UTF-8');
 $response = [];
 
 try {
-    // Llamamos a nuestro método de verificación eficiente.
-    $datosUsuario = $usuarioModel->verificarUsuario($usu, $con);
+    $consulta = $MU->VerificarUsuario($usu);
 
-    if ($datosUsuario) {
-        // ¡Credenciales correctas! INICIAMOS LA SESIÓN.
-        session_start();
+    if ($consulta && count($consulta) > 0) {
+        $datosUsuario = $consulta[0];
 
-        // Guardamos los datos del usuario en la sesión.
-        $_SESSION['id_usuario'] = $datosUsuario['id'];
-        $_SESSION['nombre_usuario'] = $datosUsuario['nombre_usuario'];
-        $_SESSION['rol'] = $datosUsuario['rol'];
-        $_SESSION['area_id'] = $datosUsuario['area_id'];
-        $_SESSION['autenticado'] = true;
+        if (password_verify($con, $datosUsuario->usu_contra)) {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
 
-        // Preparamos una respuesta de éxito.
-        $response['status'] = 'success';
+            // --- SESIÓN COMPLETA: Ahora guardamos todos los datos ---
+            $_SESSION['id_usuario'] = $datosUsuario->usu_id;
+            $_SESSION['nombre_usuario'] = $datosUsuario->usu_nombre;
+            $_SESSION['area_id'] = $datosUsuario->area_id; // ¡Dato clave añadido!
+            $_SESSION['rol'] = $datosUsuario->rol;         // ¡Dato clave añadido!
+            $_SESSION['autenticado'] = true;
 
+            $response['status'] = 'success';
+            $response['redirect'] = BASE_URL . 'view/index.php';
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Usuario o contraseña incorrectos.';
+        }
     } else {
-        // Credenciales incorrectas.
         $response['status'] = 'error';
         $response['message'] = 'Usuario o contraseña incorrectos.';
     }
 
 } catch (Exception $e) {
-    // Capturamos cualquier error inesperado.
     $response['status'] = 'error';
-    $response['message'] = 'Ocurrió un error en el servidor.';
-    error_log($e->getMessage()); // Guardamos el error real en los logs del servidor.
+    $response['message'] = 'Ocurrió un error inesperado en el servidor.';
+    error_log($e->getMessage());
 }
 
-// Siempre devolvemos una respuesta en formato JSON.
 header('Content-Type: application/json');
 echo json_encode($response);
-
 ?>

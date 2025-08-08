@@ -101,6 +101,8 @@ if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === true) {
     <script src="plantilla/dist/js/adminlte.min.js"></script>
 
     <script src="js/console_usuario.js"></script>
+
+    <script src="js/console_login.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         // Obtenemos los elementos una sola vez cuando la página carga

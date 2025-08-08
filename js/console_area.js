@@ -1,6 +1,6 @@
 $(document).ready(function () {
   // 1. INICIALIZAR LA TABLA
-  var tablaArea = new DataTable("#tabla_area", {
+  var tablaArea = $("#tabla_area").DataTable({
     responsive: true,
     processing: true,
     ajax: {

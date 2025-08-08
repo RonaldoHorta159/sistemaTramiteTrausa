@@ -150,7 +150,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-
+                        <li class="nav-item">
+                            <a onclick="cargar_contenido('contenido_principal','tramite/view_tramite.php')"
+                                class="nav-link">
+                                <i class="nav-icon fas fa-file-invoice"></i>
+                                <p>Trámites</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a onclick="cargar_contenido('contenido_principal','usuario/view_usuario.php')"
                                 class="nav-link">
@@ -166,6 +172,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <p>
                                     Área
                                 </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a onclick="cargar_contenido('contenido_principal','empleado/view_empleado.php')"
+                                class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>Empleados</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a onclick="cargar_contenido('contenido_principal','tipo_documento/view_tipo_documento.php')"
+                                class="nav-link">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                <p>Tipo Documento</p>
                             </a>
                         </li>
 
