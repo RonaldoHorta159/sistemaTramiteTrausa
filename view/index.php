@@ -22,6 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="../plantilla/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../plantilla/dist/css/adminlte.min.css">
+    <link href="../utilities/DataTables/datatables.min.css" rel="stylesheet">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -159,6 +160,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a onclick="cargar_contenido('contenido_principal','area/view_area.php')" class="nav-link">
+                                <i class="nav-icon fas fa-building"></i>
+                                <p>
+                                    Área
+                                </p>
+                            </a>
+                        </li>
 
                         <li class="nav-item">
                             <a href="../controller/usuario/controlador_cerrar_sesion.php" class="nav-link">
@@ -260,6 +269,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="../plantilla/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../plantilla/dist/js/adminlte.min.js"></script>
+
+    <script src="../utilities/DataTables/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 </body>
 
